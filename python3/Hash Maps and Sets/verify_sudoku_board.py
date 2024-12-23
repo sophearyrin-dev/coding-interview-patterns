@@ -27,3 +27,39 @@ def verify_sudoku_board(board: List[List[int]]) -> bool:
             column_sets[c].add(num)
             subgrid_sets[r // 3][c // 3].add(num)
     return True
+
+
+//java
+
+
+class Solution {
+    public boolean isValidSudoku(char[][] board) {
+        for (int i = 0; i < 9; i++) {
+            HashSet<Character> setRow = new HashSet<>();
+            HashSet<Character> setCol = new HashSet<>();
+            HashSet<Character> setBox = new HashSet<>();
+
+            for (int j = 0; j < 9; j++) {
+                // Check row
+                if (board[i][j] != '.' && !setRow.add(board[i][j])) {
+                    return false;
+                }
+
+                // Check column
+                if (board[j][i] != '.' && !setCol.add(board[j][i])) {
+                    return false;
+                }
+
+                // Check 3x3 subgrid
+                int rowIndex = i/3*3 + j/3;
+                int colIndex = i%3*3 + j%3;
+                if (board[rowIndex][colIndex] != '.' && !setBox.add(board[rowIndex][colIndex])) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+}
+
